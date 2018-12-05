@@ -1,0 +1,85 @@
+Pridáme repozitáre:
+
+echo "deb http://ftp.cz.debian.org/debian/ stretch main non-free 
+deb-src http://ftp.cz.debian.org/debian/ stretch main non-free
+
+deb http://security.debian.org/debian-security stretch/updates main contrib non-free 
+deb-src http://security.debian.org/debian-security stretch/updates main contrib non-free
+
+# stretch-updates, previously known as 'volatile'
+deb http://ftp.cz.debian.org/debian/ stretch-updates main contrib
+deb-src http://ftp.cz.debian.org/debian/ stretch-updates main contrib
+" > /etc/apt/sources.list
+Nainštalujeme pár základných balíčkov
+
+apt-get clean ;
+apt update ;
+apt install -y apt-utils ;
+apt install -y dialog ;
+apt install -y libterm-ui-perl ;
+apt upgrade -y ;
+apt install -y vim curl gnupg gnupg2 gnupg1 gcc g++ make less wget apt-transport-https procps;
+Pridáme certifikát na repozitár pre MongoDB
+
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+Pridáme repozitár na MongoDB
+
+echo " 
+#mongodb
+deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main
+" >> /etc/apt/sources.list
+Nainštalujeme MongoDB
+
+apt update
+apt install -y mongodb-org
+apt install -y mongodb
+Pridáme repozitár s novým NodeJS
+
+curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+bash nodesource_setup.sh
+apt install -y nodejs
+Pridáme repozitár na Redis
+
+echo " #redist
+deb http://ftp.utexas.edu/dotdeb/ stable all
+deb-src http://ftp.utexas.edu/dotdeb/ stable all
+" >> /etc/apt/sources.list
+Inštalácia Redis
+
+wget https://www.dotdeb.org/dotdeb.gpg
+apt-key add dotdeb.gpg
+apt install -y redis-server
+Inštalácia Yarn
+
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+apt-get update ;
+apt-get install yarn ;
+Pridáme užívateľa
+
+useradd -d /home/screeps -s /bin/bash -m -b /home/screeps screeps
+Inštalácia a štart Screeps servera
+
+su - screeps -c "mkdir ~/world ;"
+su - screeps -c "cd ~/world ; npm install screeps"
+su - screeps -c "cd ~/world ; npm install ajv"
+su - screeps -c "npx screeps init"
+su - screeps -c "cd ~/world ; npm install screepsmod-mogno"
+Posledná konfigurácia a štart
+
+echo "
+[mongo]
+host = 192.168.0.1
+
+[redis]
+host = 192.168.0.1
+" >> /home/screeps/.screepsrc;
+
+/etc/init.d/mongodb start
+/etc/init.d/redis-server start
+
+su - screeps -c "npx screeps start"
+Zmazanie botov
+
+npx screeps cli
+bots.removeUser("JackBot")
