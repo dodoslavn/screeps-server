@@ -35,3 +35,5 @@ echo INFO: Running Screeps installation
 npm install screeps
 npx screeps init
 
+echo "cd /screeps" >> /start.sh
+echo "npx screeps start >/screeps.log 2>&1 &" >> /start.sh
