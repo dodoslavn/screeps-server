@@ -17,7 +17,7 @@ echo $TZ > /etc/timezone
 echo INFO: Installing updates and basic tools
 apt-get install -y apt-utils ;
 apt-get install -y dialog ;
-apt-get install -y libterm-ui-perl ;
+apt-get install -y libterm-ui-perl tzdata tcl;
 apt-get upgrade -y ;
 apt-get install -y vim curl gnupg gnupg2 gnupg1 gcc g++ make less wget apt-transport-https procps;
 apt-get install -y build-essential tcl git
