@@ -1,6 +1,6 @@
 #set -x
 
-#docker image pull debian
+docker image pull $DOCKER_IMAGE 
 
 if [ -z "$SCREEPS_NAME" ]
 	then
@@ -16,8 +16,7 @@ if ! [ -z "$CLEAN_RUN" ]
 
 echo
 echo INFO: Building new container
-#docker run --name $SCREEPS_NAME --hostname=$SCREEPS_NAME -d -t debian bash
-docker run -p 21025:21025/tcp --network=bridge --name $SCREEPS_NAME --hostname=$SCREEPS_NAME -d -t ubuntu bash
+docker run -p 21025:21025/tcp --network=bridge --name $SCREEPS_NAME --hostname=$SCREEPS_NAME -d -t $DOCKER_IMAGE bash
 
 echo
 echo INFO: Copying installation script

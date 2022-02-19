@@ -20,9 +20,11 @@ apt-get install -y dialog ;
 apt-get install -y libterm-ui-perl ;
 apt-get upgrade -y ;
 apt-get install -y vim curl gnupg gnupg2 gnupg1 gcc g++ make less wget apt-transport-https procps;
+apt-get install -y build-essential tcl git
 
 echo INFO: Installting Python2 NodeJS NPM
 apt-get install -y nodejs
+nodejs -v
 apt-get install -y python2
 apt-get install -y npm
 
@@ -32,7 +34,7 @@ mkdir /screeps
 cd /screeps
 
 echo INFO: Running Screeps installation
-npm install screeps
+npm install -g screeps
 npx screeps init
 
 echo "cd /screeps" >> /start.sh

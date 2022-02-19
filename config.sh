@@ -1,5 +1,7 @@
 #name of docker network
 export NET_NAME=screeps_net
+export DOCKER_IMAGE=ubuntu:bionic
+
 
 export SCREEPS_NAME=screeps_game
 export MOGNO_NAME=screeps_mongo
