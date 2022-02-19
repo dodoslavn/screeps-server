@@ -34,7 +34,8 @@ mkdir /screeps
 cd /screeps
 
 echo INFO: Running Screeps installation
-npm install -g screeps
+npm install screeps
+echo $?
 npx screeps init
 
 echo "cd /screeps" >> /start.sh
