@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   screeps:
-    image: screepers/screeps-launcher:latest
+    build: .
     container_name: screeps-server
     restart: unless-stopped
     depends_on:
@@ -12,12 +12,17 @@ services:
         condition: service_healthy
     ports:
       - "21025:21025"
+      - "21026:21026"
     volumes:
-      - ./config.yml:/config/config.yml:ro
       - screeps-data:/screeps
+      - ./.screepsrc:/screeps/.screepsrc:ro
     environment:
+      - STEAM_KEY=${STEAM_KEY}
       - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+      - MONGO_DATABASE=screeps
       - REDIS_HOST=redis
+      - REDIS_PORT=6379
 
   mongo:
     image: mongo:8

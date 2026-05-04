@@ -49,8 +49,8 @@ check_requirements() {
 start_server() {
     log_header "Starting Screeps Server"
 
-    log_info "Pulling latest images..."
-    docker compose pull
+    log_info "Building Screeps image with Node.js 22..."
+    docker compose build
 
     log_info "Starting services (this may take a few minutes on first run)..."
     docker compose up -d

@@ -22,12 +22,14 @@ Official **screeps-launcher** setup with MongoDB and Redis for high-performance 
 
 ### 2. Configure
 
-Edit `config.yml` and replace `YOUR_STEAM_API_KEY_HERE` with your actual key:
+Set your Steam API key as an environment variable and create the config:
 
-```yaml
-env:
-  STEAM_KEY: "abc123xyz456..."  # Your real key here
+```bash
+export STEAM_KEY="your_actual_steam_api_key_here"
+./setup-config.sh
 ```
+
+Or manually create `.screepsrc` file with your Steam key.
 
 ### 3. Deploy
 
