@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  screeps:
+    image: screepers/screeps-launcher:latest
+    container_name: screeps-server
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "21025:21025"
+    volumes:
+      - ./config.yml:/config/config.yml:ro
+      - screeps-data:/screeps
+    environment:
+      - MONGO_HOST=mongo
+      - REDIS_HOST=redis
+
+  mongo:
+    image: mongo:8
+    container_name: screeps-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7
+    container_name: screeps-redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  screeps-data:
+  mongo-data:
+  redis-data:

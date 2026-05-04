@@ -1,0 +1,6 @@
+# Backups
+backups/
+
+# Logs
+*.log
+logs/

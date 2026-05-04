@@ -1,0 +1,44 @@
+# Screeps Launcher Configuration
+# Documentation: https://github.com/screepers/screeps-launcher
+
+env:
+  # REQUIRED: Your Steam Web API Key
+  # Get it from: https://steamcommunity.com/dev/apikey
+  STEAM_KEY: "YOUR_STEAM_API_KEY_HERE"
+
+  # MongoDB Configuration
+  MONGO_HOST: "mongo"
+  MONGO_PORT: "27017"
+  MONGO_DATABASE: "screeps"
+
+  # Redis Configuration
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+
+# Mods to install
+mods:
+  - "screepsmod-mongo"
+  - "screepsmod-auth"
+  - "screepsmod-admin-utils"
+
+# Bots to install (optional - examples for testing)
+# bots:
+#   - "screepers/screeps-bot-tooangel"
+
+# Server settings
+config:
+  # Server ports
+  port: 21025
+  host: "0.0.0.0"
+
+  # Password protection (optional)
+  # password: "your_server_password"
+
+  # Performance tuning
+  runners_cnt: 2
+  processors_cnt: 2
+
+  # Logging
+  logdir: "logs"
+  logConsole: true
+  logLevel: 2  # 0=error, 1=warn, 2=info, 3=debug
