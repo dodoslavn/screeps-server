@@ -25,7 +25,7 @@ check_requirements() {
         exit 1
     fi
 
-    if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
+    if ! command -v docker compose &> /dev/null && ! docker compose version &> /dev/null; then
         log_error "Docker Compose is not installed!"
         exit 1
     fi
@@ -50,10 +50,10 @@ start_server() {
     log_header "Starting Screeps Server"
 
     log_info "Pulling latest images..."
-    docker-compose pull
+    docker compose pull
 
     log_info "Starting services (this may take a few minutes on first run)..."
-    docker-compose up -d
+    docker compose up -d
 
     log_info "Waiting for MongoDB to be ready..."
     for i in {1..30}; do
@@ -77,13 +77,13 @@ start_server() {
 
 stop_server() {
     log_header "Stopping Screeps Server"
-    docker-compose down
+    docker compose down
     log_info "Server stopped"
 }
 
 restart_server() {
     log_header "Restarting Screeps Server"
-    docker-compose restart
+    docker compose restart
     sleep 5
     show_status
 }
@@ -106,7 +106,7 @@ reset_server() {
     fi
 
     log_info "Stopping services..."
-    docker-compose down -v
+    docker compose down -v
 
     log_info "Removing volumes..."
     docker volume rm screeps-server_screeps-data 2>/dev/null || true
@@ -136,7 +136,7 @@ init_db() {
 
 show_status() {
     log_header "Screeps Server Status"
-    docker-compose ps
+    docker compose ps
     echo ""
 
     if docker ps --format '{{.Names}}' | grep -q "screeps-server"; then
@@ -154,7 +154,7 @@ show_status() {
 
 show_logs() {
     log_info "Showing logs (Ctrl+C to exit)..."
-    docker-compose logs -f screeps
+    docker compose logs -f screeps
 }
 
 cli_access() {
