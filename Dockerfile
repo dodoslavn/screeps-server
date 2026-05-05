@@ -21,6 +21,7 @@ EXPOSE 21025 21026
 RUN echo '#!/bin/bash' > /entrypoint.sh && \
     echo 'set -e' >> /entrypoint.sh && \
     echo 'cd /screeps' >> /entrypoint.sh && \
+    echo 'mkdir -p logs' >> /entrypoint.sh && \
     echo 'if [ ! -f package.json ]; then' >> /entrypoint.sh && \
     echo '  echo "Initializing Screeps..."' >> /entrypoint.sh && \
     echo '  npx screeps init' >> /entrypoint.sh && \
