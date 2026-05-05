@@ -4,7 +4,7 @@ pipeline {
     parameters {
         choice(
             name: 'ACTION',
-            choices: ['deploy', 'restart', 'stop', 'reset', 'status', 'backup'],
+            choices: ['deploy', 'restart', 'stop', 'reset', 'init-db', 'status', 'backup'],
             description: 'Action to perform on the Screeps server'
         )
         string(
@@ -117,6 +117,20 @@ pipeline {
             }
         }
 
+        stage('Initialize Database') {
+            when {
+                expression { params.ACTION == 'init-db' }
+            }
+            steps {
+                script {
+                    sh """
+                        cd ${DEPLOY_DIR}
+                        ./deploy.sh init-db
+                    """
+                }
+            }
+        }
+
         stage('Status') {
             when {
                 expression { params.ACTION == 'status' }
@@ -142,7 +156,7 @@ pipeline {
 
                     sh """
                         cd ${DEPLOY_DIR}
-                        docker-compose ps
+                        docker compose ps
 
                         if docker ps --format '{{.Names}}' | grep -q 'screeps-server'; then
                             echo "✓ Screeps server is running"
@@ -189,8 +203,8 @@ Connect via Steam:
   3. Add: <server-ip>:21025
 
 First-time setup:
-  cd ${DEPLOY_DIR}
-  ./deploy.sh init-db
+  Run this Jenkins job again with ACTION=init-db
+  Or manually: cd ${DEPLOY_DIR} && ./deploy.sh init-db
 
 View logs:
   cd ${DEPLOY_DIR}

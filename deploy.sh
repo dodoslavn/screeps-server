@@ -126,12 +126,22 @@ init_db() {
         exit 1
     fi
 
-    log_info "Connecting to CLI to initialize database..."
-    log_info "Run this command in the CLI: system.resetAllData()"
-    log_info "Then press Ctrl+C to exit"
-    echo ""
-
-    docker exec -it screeps-server screeps-launcher cli
+    # Check if running in interactive mode (has TTY)
+    if [ -t 0 ]; then
+        log_info "Connecting to CLI to initialize database..."
+        log_info "Run this command in the CLI: system.resetAllData()"
+        log_info "Then press Ctrl+C to exit"
+        echo ""
+        docker exec -it screeps-server npx screeps cli
+    else
+        log_info "Non-interactive mode detected (Jenkins/automation)"
+        log_info "Initializing database automatically..."
+        docker exec screeps-server npx screeps cli <<EOF
+system.resetAllData()
+.exit
+EOF
+        log_info "Database initialized"
+    fi
 }
 
 show_status() {
@@ -165,7 +175,7 @@ cli_access() {
     log_info "Press Ctrl+C to exit"
     echo ""
 
-    docker exec -it screeps-server screeps-launcher cli
+    docker exec -it screeps-server npx screeps cli
 }
 
 backup_data() {
