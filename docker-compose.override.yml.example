@@ -1,0 +1,34 @@
+# Docker Compose Override Example
+# Copy this to docker-compose.override.yml and adjust values
+# This file will automatically be loaded by docker compose
+
+services:
+  screeps:
+    deploy:
+      resources:
+        limits:
+          cpus: '40'          # Increase for more performance
+          memory: 48G         # Increase if you have high memory usage
+        reservations:
+          cpus: '20'          # Higher reservation for priority
+          memory: 16G
+
+  mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: '12'          # More CPUs for heavy database load
+          memory: 32G         # More RAM for large databases
+        reservations:
+          cpus: '4'
+          memory: 8G
+
+  redis:
+    deploy:
+      resources:
+        limits:
+          cpus: '6'
+          memory: 8G
+        reservations:
+          cpus: '2'
+          memory: 1G

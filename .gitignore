@@ -4,3 +4,6 @@ backups/
 # Logs
 *.log
 logs/
+
+# Docker Compose override (local customizations)
+docker-compose.override.yml

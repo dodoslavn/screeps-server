@@ -21,6 +21,14 @@ services:
       - MONGO_DATABASE=screeps
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+    deploy:
+      resources:
+        limits:
+          cpus: '30'          # Max 30 CPUs (adjust based on runners_cnt + processors_cnt)
+          memory: 32G         # Max 32GB RAM
+        reservations:
+          cpus: '10'          # Reserve at least 10 CPUs
+          memory: 8G          # Reserve at least 8GB RAM
 
   mongo:
     image: mongo:8
@@ -33,6 +41,14 @@ services:
       interval: 30s
       timeout: 5s
       retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '8'           # Max 8 CPUs for MongoDB
+          memory: 16G         # Max 16GB RAM
+        reservations:
+          cpus: '2'           # Reserve at least 2 CPUs
+          memory: 2G          # Reserve at least 2GB RAM
 
   redis:
     image: redis:7
@@ -45,6 +61,14 @@ services:
       interval: 30s
       timeout: 5s
       retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '4'           # Max 4 CPUs for Redis
+          memory: 4G          # Max 4GB RAM
+        reservations:
+          cpus: '1'           # Reserve at least 1 CPU
+          memory: 512M        # Reserve at least 512MB RAM
 
 volumes:
   screeps-data:
