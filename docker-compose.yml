@@ -13,7 +13,7 @@ services:
       - "21026:21026"
     volumes:
       - screeps-data:/screeps
-      - ./.screepsrc:/screeps/.screepsrc:ro
+      - ./.screepsrc:/screepsrc:ro
     environment:
       - STEAM_KEY=${STEAM_KEY}
       - MONGO_HOST=mongo
