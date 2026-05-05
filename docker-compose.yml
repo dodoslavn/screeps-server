@@ -24,11 +24,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '30'          # Max 30 CPUs (adjust based on runners_cnt + processors_cnt)
-          memory: 32G         # Max 32GB RAM
+          cpus: '8'           # Max CPUs (adjust based on runners_cnt + processors_cnt)
+          memory: 12G         # Max RAM
         reservations:
-          cpus: '10'          # Reserve at least 10 CPUs
-          memory: 8G          # Reserve at least 8GB RAM
+          cpus: '4'           # Reserve at least this many CPUs
+          memory: 4G          # Reserve at least this much RAM
 
   mongo:
     image: mongo:8
@@ -44,11 +44,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '8'           # Max 8 CPUs for MongoDB
-          memory: 16G         # Max 16GB RAM
+          cpus: '4'           # Max CPUs for MongoDB
+          memory: 8G          # Max RAM
         reservations:
-          cpus: '2'           # Reserve at least 2 CPUs
-          memory: 2G          # Reserve at least 2GB RAM
+          cpus: '1'           # Reserve at least this many CPUs
+          memory: 1G          # Reserve at least this much RAM
 
   redis:
     image: redis:7
@@ -64,11 +64,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '4'           # Max 4 CPUs for Redis
-          memory: 4G          # Max 4GB RAM
+          cpus: '2'           # Max CPUs for Redis
+          memory: 2G          # Max RAM
         reservations:
-          cpus: '1'           # Reserve at least 1 CPU
-          memory: 512M        # Reserve at least 512MB RAM
+          cpus: '1'           # Reserve at least this many CPUs
+          memory: 256M        # Reserve at least this much RAM
 
 volumes:
   screeps-data:

@@ -4,16 +4,16 @@ This guide explains how to tune Screeps server resources for your hardware.
 
 ## Default Resource Limits
 
-The default `docker-compose.yml` includes conservative resource limits:
+The default `docker-compose.yml` includes conservative resource limits suitable for small to medium servers:
 
 | Service | CPU Limit | Memory Limit | Reserved CPU | Reserved RAM |
 |---------|-----------|--------------|--------------|--------------|
-| Screeps | 30 CPUs   | 32 GB        | 10 CPUs      | 8 GB         |
-| MongoDB | 8 CPUs    | 16 GB        | 2 CPUs       | 2 GB         |
-| Redis   | 4 CPUs    | 4 GB         | 1 CPU        | 512 MB       |
-| **Total** | **42 CPUs** | **52 GB** | **13 CPUs** | **10.5 GB** |
+| Screeps | 8 CPUs    | 12 GB        | 4 CPUs       | 4 GB         |
+| MongoDB | 4 CPUs    | 8 GB         | 1 CPU        | 1 GB         |
+| Redis   | 2 CPUs    | 2 GB         | 1 CPU        | 256 MB       |
+| **Total** | **14 CPUs** | **22 GB** | **6 CPUs** | **5.25 GB** |
 
-These defaults work well for servers with **50+ CPUs and 64+ GB RAM**.
+These defaults work well for servers with **16+ CPUs and 32+ GB RAM**.
 
 ## Overriding Resource Limits
 
