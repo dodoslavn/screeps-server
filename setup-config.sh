@@ -9,6 +9,8 @@ fi
 cat > .screepsrc << EOF
 [steamKey]
 $STEAM_KEY
+[assetdir]
+/usr/local/lib/node_modules/screeps/assets
 [runners_cnt]
 2
 [processors_cnt]
