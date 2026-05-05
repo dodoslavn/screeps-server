@@ -21,7 +21,7 @@ EXPOSE 21025 21026
 RUN echo '#!/bin/bash' > /entrypoint.sh && \
     echo 'set -e' >> /entrypoint.sh && \
     echo 'cd /screeps' >> /entrypoint.sh && \
-    echo 'mkdir -p logs .screepsdb' >> /entrypoint.sh && \
+    echo 'mkdir -p logs' >> /entrypoint.sh && \
     echo 'if [ -f /screepsrc ]; then' >> /entrypoint.sh && \
     echo '  cp -f /screepsrc .screepsrc' >> /entrypoint.sh && \
     echo 'fi' >> /entrypoint.sh && \
