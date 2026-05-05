@@ -130,6 +130,10 @@ init_db() {
 
     # Wait for Screeps server to be fully initialized
     log_info "Waiting for Screeps server to be ready..."
+    log_info "Debug: Checking container and config..."
+    docker exec screeps-server ls -la /screeps/ 2>&1 || true
+    docker exec screeps-server cat /screeps/.screepsrc 2>&1 || log_warn ".screepsrc not found in container"
+
     for i in {1..60}; do
         if docker exec screeps-server npx screeps version &>/dev/null 2>&1; then
             log_info "Screeps is ready"
@@ -137,7 +141,10 @@ init_db() {
         fi
         if [ $i -eq 60 ]; then
             log_error "Screeps server failed to start after 60 seconds"
-            docker logs screeps-server --tail 20
+            log_info "Container logs:"
+            docker logs screeps-server --tail 30
+            log_info "Config file in container:"
+            docker exec screeps-server cat /screeps/.screepsrc 2>&1 || echo ".screepsrc not found"
             exit 1
         fi
         sleep 2
