@@ -21,7 +21,6 @@ services:
       - MONGO_DATABASE=screeps
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - DB_PATH=/screeps/.screepsdb
       - STORAGE_PORT=21027
       - MODFILE=/screeps/mods.json
     deploy:
