@@ -23,7 +23,7 @@ RUN echo '#!/bin/bash' > /entrypoint.sh && \
     echo 'cd /screeps' >> /entrypoint.sh && \
     echo 'mkdir -p logs .screepsdb' >> /entrypoint.sh && \
     echo 'if [ -f /screepsrc ]; then' >> /entrypoint.sh && \
-    echo '  cp /screepsrc .screepsrc' >> /entrypoint.sh && \
+    echo '  cp -f /screepsrc .screepsrc' >> /entrypoint.sh && \
     echo 'fi' >> /entrypoint.sh && \
     echo 'if [ ! -f mods.json ]; then' >> /entrypoint.sh && \
     echo '  echo "{}" > mods.json' >> /entrypoint.sh && \
