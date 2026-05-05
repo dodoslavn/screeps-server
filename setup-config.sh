@@ -12,9 +12,9 @@ $STEAM_KEY
 [assetdir]
 /usr/local/lib/node_modules/screeps/assets
 [runners_cnt]
-2
+6
 [processors_cnt]
-2
+6
 [logdir]
 logs
 [port]
