@@ -21,9 +21,12 @@ EXPOSE 21025 21026
 RUN echo '#!/bin/bash' > /entrypoint.sh && \
     echo 'set -e' >> /entrypoint.sh && \
     echo 'cd /screeps' >> /entrypoint.sh && \
-    echo 'mkdir -p logs' >> /entrypoint.sh && \
+    echo 'mkdir -p logs .screepsdb' >> /entrypoint.sh && \
     echo 'if [ -f /screepsrc ]; then' >> /entrypoint.sh && \
     echo '  cp /screepsrc .screepsrc' >> /entrypoint.sh && \
+    echo 'fi' >> /entrypoint.sh && \
+    echo 'if [ ! -f mods.json ]; then' >> /entrypoint.sh && \
+    echo '  echo "{}" > mods.json' >> /entrypoint.sh && \
     echo 'fi' >> /entrypoint.sh && \
     echo 'if [ ! -f package.json ]; then' >> /entrypoint.sh && \
     echo '  echo "Initializing Screeps..."' >> /entrypoint.sh && \
