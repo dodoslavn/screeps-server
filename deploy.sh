@@ -30,15 +30,17 @@ check_requirements() {
         exit 1
     fi
 
-    if [ ! -f config.yml ]; then
-        log_error "config.yml not found!"
-        log_info "Edit config.yml and set your Steam API key"
+    if [ ! -f .screepsrc ]; then
+        log_error ".screepsrc not found!"
+        log_info "Create .screepsrc with your Steam API key"
+        log_info "Run: ./setup-config.sh"
+        log_info "Get your key from: https://steamcommunity.com/dev/apikey"
         exit 1
     fi
 
-    if grep -q "YOUR_STEAM_API_KEY_HERE" config.yml; then
-        log_error "Steam API key not configured in config.yml!"
-        log_info "Edit config.yml and replace YOUR_STEAM_API_KEY_HERE with your actual key"
+    if grep -q "YOUR_STEAM_API_KEY_HERE" .screepsrc 2>/dev/null; then
+        log_error "Steam API key not configured in .screepsrc!"
+        log_info "Edit .screepsrc and replace YOUR_STEAM_API_KEY_HERE with your actual key"
         log_info "Get your key from: https://steamcommunity.com/dev/apikey"
         exit 1
     fi
