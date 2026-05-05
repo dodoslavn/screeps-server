@@ -126,6 +126,21 @@ init_db() {
         exit 1
     fi
 
+    # Wait for Screeps server to be fully initialized
+    log_info "Waiting for Screeps server to be ready..."
+    for i in {1..60}; do
+        if docker exec screeps-server npx screeps version &>/dev/null 2>&1; then
+            log_info "Screeps is ready"
+            break
+        fi
+        if [ $i -eq 60 ]; then
+            log_error "Screeps server failed to start after 60 seconds"
+            docker logs screeps-server --tail 20
+            exit 1
+        fi
+        sleep 2
+    done
+
     # Check if running in interactive mode (has TTY)
     if [ -t 0 ]; then
         log_info "Connecting to CLI to initialize database..."
@@ -136,11 +151,15 @@ init_db() {
     else
         log_info "Non-interactive mode detected (Jenkins/automation)"
         log_info "Initializing database automatically..."
-        docker exec screeps-server npx screeps cli <<EOF
-system.resetAllData()
-.exit
-EOF
-        log_info "Database initialized"
+
+        # Try to run the command and capture output
+        if docker exec screeps-server sh -c "echo 'system.resetAllData()' | npx screeps cli" 2>&1; then
+            log_info "Database initialized successfully"
+        else
+            log_error "Database initialization failed"
+            log_info "Check logs: docker logs screeps-server"
+            exit 1
+        fi
     fi
 }
 
